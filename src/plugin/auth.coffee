@@ -145,7 +145,7 @@ class Annotator.Plugin.Auth extends Annotator.Plugin
     .fail (xhr, status, err) =>
       msg = Annotator._t("Couldn't get auth token:")
       console.error "#{msg} #{err}", xhr
-      Annotator.showNotification("#{msg} #{xhr.responseText}", Annotator.Notification.ERROR)
+      Annotator.showNotification("#{msg} #{xhr.responseText or err}", Annotator.Notification.ERROR)
 
     # always reset the requestInProgress indicator
     .always =>
