@@ -2,50 +2,110 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>JS annotation test</title>
+    <title>Annotator demo</title>
 
-    <!-- jQuery must be included before Annotator -->
     <script src="lib/vendor/jquery.js"></script>
-
-    <!-- If you're sure your users will only be using browsers modern
-         enough to have their own JSON.parse and JSON.stringify
-         implementations you can skip this -->
-    <script src="lib/vendor/json2.js"></script>
-
-    <!-- The main Annotator script -->
-    <script src="pkg/annotator.min.js"></script>
-
-    <!-- Annotator's styling and images -->
-    <link rel="stylesheet" type="text/css" href="pkg/annotator.min.css">
-
-    <!-- The following plugins are entirely optional -->
-
-    <!-- The Store plugin. Saves annotations to a remote backend -->
-    <script src="pkg/annotator.store.min.js"></script>
-
-    <!-- The Auth plugin. Allows users of Annotator to authenticate themselves
-         to the remote backend -->
-    <script src="pkg/annotator.auth.min.js"></script>
-
-    <!-- The Permissions plugin. See who created which annotation and create
-         annotations as a specified user -->
-    <script src="pkg/annotator.permissions.min.js"></script>
-
-    <!-- The Tags plugin. Edit and display tag keywords on annotations -->
-    <script src="pkg/annotator.tags.min.js"></script>
-
-    <!-- The Markdown plugin. Treat annotation text as Markdown -->
     <script src="lib/vendor/showdown.js"></script>
-    <script src="pkg/annotator.markdown.min.js"></script>
+    <script src="lib/util.js"></script>
+    <script src="lib/console.js"></script>
+    <script src="lib/class.js"></script>
+    <script src="lib/range.js"></script>
+    <script src="lib/annotator.js"></script>
+    <script src="lib/widget.js"></script>
+    <script src="lib/editor.js"></script>
+    <script src="lib/viewer.js"></script>
+    <script src="lib/notification.js"></script>
+    <script src="lib/xpath.js"></script>
+    <script src="lib/plugin/store.js"></script>
+    <script src="lib/plugin/permissions.js"></script>
+    <script src="lib/plugin/annotateitpermissions.js"></script>
+    <script src="lib/plugin/auth.js"></script>
+    <script src="lib/plugin/tags.js"></script>
+    <script src="lib/plugin/markdown.js"></script>
+    <script src="lib/plugin/unsupported.js"></script>
+    <script src="lib/plugin/filter.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/annotator.css">
+
+    <style>
+      body {
+        margin: 1em 0;
+        padding: 0;
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+      }
+      #controls, #content {
+        margin: 0 10%;
+      }
+      #controls textarea {
+        width: 80%;
+        height: 32px;
+        font-size: 16px;
+        font-family: "PragmataPro";
+        line-height: 16px;
+      }
+      #controls button.submit {
+        font-size: 14px;
+        margin: 0;
+        padding: 0.5em;
+        display: block;
+      }
+      #controls dl {
+        margin: 0 0 1em 0;
+        padding: 0;
+      }
+      #controls dl dt {
+        padding: 0.7em 0.5em;
+        display: inline-block;
+        border: 1px solid #aaa;
+        cursor: pointer;
+      }
+      #controls dl dt:hover {
+        background: rgb(106, 154, 202);
+        color: #fff;
+      }
+      #controls dl dt.active {
+        font-weight: bold;
+      }
+      #controls dl dd {
+        display: none;
+      }
+    </style>
 
   </head>
 
   <body>
-    <header>
-      <h1>Javascript annotation service test</h1>
-    </header>
+    <div id="controls">
+      <form id="demo" action="">
+        <dl>
+          <dt>start</dt>
+          <dd>
+$('#content').annotator();
+          </dd>
+          <dt>tags</dt>
+          <dd>
+$('#content').annotator()
+             .annotator('addPlugin', 'Tags');
+          </dd>
+          <dt>markdown</dt>
+          <dd>
+$('#content').annotator()
+             .annotator('addPlugin', 'Markdown');
+          </dd>
+          <dt>store</dt>
+          <dd>
+$('#content').annotator()
+             .annotator('addPlugin', 'Tags')
+             .annotator('addPlugin', 'Store', {
+                          prefix: 'http://localhost:5000',
+                        });
+          </dd>
+        </dl>
+        <textarea></textarea>
+        <button class=submit>Update &raquo;</button>
+      </form>
+    </div>
 
-    <div id="airlock">
+    <div id="content">
       <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
 
       <h2>Header Level 2</h2>
@@ -75,20 +135,44 @@
 
     <script>
       jQuery(function ($) {
-        if (typeof $.fn.annotator !== 'function') {
-          alert("Ooops! it looks like you haven't built the Annotator concatenation file. " +
-                "Either download a tagged release from GitHub, or modify the Cakefile to point " +
-                "at your copy of the YUI compressor and run `cake package`.");
-        } else {
-          // This is the important bit: how to create the annotator and add
-          // plugins
-          $('#airlock').annotator()
-                       .annotator('addPlugin', 'Permissions')
-                       .annotator('addPlugin', 'Markdown')
-                       .annotator('addPlugin', 'Tags');
 
-          $('#airlock').data('annotator').plugins['Permissions'].setUser("Joe Bloggs");
-        }
+        var autosize = function ($textarea) {
+          var lh = parseInt($textarea.css('line-height'), 10),
+              nl = $textarea.val().split("\n").length;
+          $textarea.css('height', (nl + 1) * lh);
+        };
+
+        var $code = $("#controls textarea");
+        autosize($code);
+        $code.on('keyup', function () { autosize($(this)); });
+
+        $("#controls").on('click', 'dt', function () {
+          window.location.hash = '#' + $(this).text().trim();
+          $code.val($(this).next('dd').text().trim());
+          autosize($code);
+          $('#controls form').submit();
+        });
+
+        $("#controls").on('submit', 'form', function (e) {
+          e.preventDefault();
+          var ann = $("#content").data('annotator');
+          if (ann != null) {
+            ann.destroy();
+          }
+          eval($code.val());
+        });
+
+        $('#controls dt').each(function () {
+          if ('#' + $(this).text().trim() === window.location.hash) {
+            $(this).click();
+          }
+        });
+
+
+        $('#content').on('click', '.annotator-hl', function () {
+          console.debug($(this).data());
+        });
+
       });
     </script>
   </body>
