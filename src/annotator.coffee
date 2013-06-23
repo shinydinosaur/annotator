@@ -181,6 +181,12 @@ class Annotator extends Delegator
       "mousedown": this.checkForStartSelection
     })
 
+    # Ugh... find filter plugin and kill...
+    $('.annotator-filter').remove()
+    $('html').css('padding-top', '0')
+
+    $('#annotator-dynamic-style').remove()
+
     @adder.remove()
     @viewer.element.remove()
     @editor.element.remove()
