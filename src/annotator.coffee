@@ -188,7 +188,9 @@ class Annotator extends Delegator
     $('#annotator-dynamic-style').remove()
 
     @adder.remove()
+    @viewer.removeEvents()
     @viewer.element.remove()
+    @editor.removeEvents()
     @editor.element.remove()
 
     @wrapper.find('.annotator-hl').each ->
@@ -199,7 +201,10 @@ class Annotator extends Delegator
     @wrapper.remove()
     @element.data('annotator', null)
 
-    delete this
+    for name, plugin of @plugins
+      @plugins[name].removeEvents()
+
+    this.removeEvents()
 
   # Public: Gets the current selection excluding any nodes that fall outside of
   # the @wrapper. Then returns and Array of NormalizedRange instances.
