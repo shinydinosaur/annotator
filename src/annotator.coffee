@@ -173,6 +173,28 @@ class Annotator extends Delegator
 
     this
 
+  # Public: Destroy the current Annotator instance, unbinding all events and
+  # disposing of all relevent elements.
+  destroy: ->
+    $(document).unbind({
+      "mouseup":   this.checkForEndSelection
+      "mousedown": this.checkForStartSelection
+    })
+
+    @adder.remove()
+    @viewer.element.remove()
+    @editor.element.remove()
+
+    @wrapper.find('.annotator-hl').each ->
+      $(this).contents().insertBefore(this)
+      $(this).remove()
+
+    @wrapper.contents().insertBefore(@wrapper)
+    @wrapper.remove()
+    @element.data('annotator', null)
+
+    delete this
+
   # Public: Gets the current selection excluding any nodes that fall outside of
   # the @wrapper. Then returns and Array of NormalizedRange instances.
   #
