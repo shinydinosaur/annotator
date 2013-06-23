@@ -29,6 +29,7 @@ class Delegator
   constructor: (element, options) ->
     @options = $.extend(true, {}, @options, options)
     @element = $(element)
+    @_closures = {}
 
     this.on = this.subscribe
     this.addEvents()
@@ -60,6 +61,11 @@ class Delegator
       [selector..., event] = sel.split ' '
       this.addEvent selector.join(' '), event, functionName
 
+  removeEvents: ->
+    for sel, functionName of @events
+      [selector..., event] = sel.split ' '
+      this.removeEvent selector.join(' '), event, functionName
+
   # Binds an event to a callback function represented by a String. An optional
   # bindTo selector can be provided in order to watch for events on a child
   # element.
@@ -89,13 +95,35 @@ class Delegator
 
     bindTo = @element if isBlankSelector
 
+
     if typeof bindTo is 'string'
       @element.delegate bindTo, event, closure
+      @_closures["#{bindTo}__#{event}"] = closure
     else
       if this.isCustomEvent(event)
         this.subscribe event, closure
       else
         $(bindTo).bind event, closure
+      @_closures["__self__#{event}"] = closure
+
+    this
+
+  removeEvent: (bindTo, event, functionName) ->
+    isBlankSelector = typeof bindTo is 'string' and bindTo.replace(/\s+/g, '') is ''
+
+    bindTo = @element if isBlankSelector
+
+    if typeof bindTo is 'string'
+      closure = @_closures["#{bindTo}__#{event}"]
+      @element.undelegate bindTo, event, closure
+      delete @_closures["#{bindTo}__#{event}"]
+    else
+      closure = @_closures["__self__#{event}"]
+      if this.isCustomEvent(event)
+        this.unsubscribe event, closure
+      else
+        $(bindTo).unbind event, closure
+      delete @_closures["__self__#{event}"]
 
     this
 
