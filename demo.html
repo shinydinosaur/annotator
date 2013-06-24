@@ -174,10 +174,9 @@ $('#content').annotator()
 
         $("#controls").on('submit', 'form', function (e) {
           e.preventDefault();
-          var ann = $("#content").data('annotator');
-          if (ann != null) {
-            ann.destroy();
-          }
+          $.each(Annotator._instances.slice(0), function () {
+            this.destroy();
+          });
           evil();
         });
 
