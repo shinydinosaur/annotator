@@ -109,31 +109,55 @@ $('#content').annotator()
     </div>
 
     <div id="content">
-      <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+      <a id="SimpleAnnotations" name="SimpleAnnotations"></a>
+      <h2>Open Annotation Core</h2>
 
-      <h2>Header Level 2</h2>
+      <p>
+        In general terms, an Annotation expresses the relationship between two or more resources, and their metadata, using an RDF graph.
+        The Open Annotation Core framework explains how to identify and describe the related resources,
+        and how to provide information concerning the creation and intent of the Annotation.
+      </p>
 
-      <ol>
-         <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-         <li>Aliquam tincidunt mauris eu risus.</li>
-      </ol>
+      <a id="BodyTarget" name="BodyTarget"></a>
+      <h3>Body and Target Resources</h3>
+      <p>
+        Typically an Annotation has a single Body, which is the comment or other descriptive resource, and a single Target that the Body is somehow "about".
+        The Body provides the information which is annotating the Target.
+        This "aboutness" may be further clarified or extended to notions such as classifying or identifying, discussed in more detail in the section on <a href="#Motivations">Motivations</a>.
+      </p>
 
-      <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+      <p>
+        The Body and Target may be of any media type, and contain any type of content.  The Body and Target SHOULD be
+        identified by HTTP URIs unless they are <a href="#BodyEmbed">embedded</a> within the Annotation.</p>
 
-      <h3>Header Level 3</h3>
+      <p>
+        All Annotations MUST be instances of the class <code class="tech">oa:Annotation</code>,
+        and additional subclassing is ONLY RECOMMENDED in order to provide additional, community-specific constraints on the model.
+        The model does not define classes for Body and Target, as the Body of one Annotation may be the Target of another,
+        and thus the classes would not convey any usable information.
+        Instead, typing based on the <a href="#BodyTargetType">resource content</a> is RECOMMENDED.
+      </p>
 
-      <ul>
-         <li id="listone">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-         <li id="listtwo">Aliquam tincidunt mauris eu risus.</li>
-      </ul>
+      <p>
+        The model defines two relationships, <code class="tech">oa:hasBody</code> and <code class="tech">oa:hasTarget</code>,
+        to associate the Body and Target resources, respectively, with the Annotation.
+      </p>
 
-      <pre><code>
-      #header h1 a {
-        display: block;
-        width: 300px;
-        height: 80px;
-      }
-      </code></pre>
+      <h4>Model</h4>
+
+      <blockquote>
+        <table>
+          <tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+          <tr><td>oa:Annotation</td><td>Class</td><td>The class for Annotations
+              <br/>The oa:Annotation class MUST be associated with an Annotation.</td></tr>
+          <tr><td>oa:hasBody</td><td>Relationship</td><td>The relationship between an Annotation and the Body of the Annotation
+              <br/>There SHOULD be 1 or more oa:hasBody relationships associated with an Annotation but there MAY be 0.
+          </td></tr>
+          <tr><td>oa:hasTarget</td><td>Relationship</td><td>The relationship between an Annotation and the Target of the Annotation
+              <br/>There MUST be 1 or more oa:hasTarget relationships associated with an Annotation.
+          </td></tr>
+        </table>
+      </blockquote>
     </div>
 
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
