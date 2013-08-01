@@ -124,12 +124,12 @@ class Annotator extends Delegator
       .on('hide', this.onEditorHide)
       .on('save', this.onEditorSubmit)
       .addField({
-        type: 'textarea',
-        label: _t('Comments') + '\u2026'
+        type: 'input-datalist',
+        label: _t('Categorize')
         load: (field, annotation) ->
-          $(field).find('textarea').val(annotation.text || '')
+          $(field).find('input').val(annotation.text || '')
         submit: (field, annotation) ->
-          annotation.text = $(field).find('textarea').val()
+          annotation.text = $(field).find('input').val()
       })
 
     @editor.element.appendTo(@wrapper)

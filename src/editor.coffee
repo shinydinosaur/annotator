@@ -240,7 +240,7 @@ class Annotator.Editor extends Annotator.Widget
 
     switch (field.type)
       when 'textarea'          then input = $('<textarea />')
-      when 'input', 'checkbox' then input = $('<input />')
+      when 'input', 'input-datalist', 'checkbox' then input = $('<input />')
       when 'select' then input = $('<select />')
 
     element.append(input);
@@ -249,6 +249,19 @@ class Annotator.Editor extends Annotator.Widget
       id: field.id
       placeholder: field.label
     })
+
+    if field.type == 'input-datalist'
+      input.attr({
+        list: 'categories'
+      })
+      element.addClass('annotator-input-datalist')
+      datalist = $('<datalist />', {id: 'categories'})
+      # append categories to the datalist
+      datalist.append($('<option value="travel">travel</option>'))
+      datalist.append($('<option value="teaching">teaching</option>'))
+      datalist.append($('<option value="work">work</option>'))
+      datalist.append($('<option value="play">play</option>'))
+      element.append(datalist)
 
     if field.type == 'checkbox'
       input[0].type = 'checkbox'
