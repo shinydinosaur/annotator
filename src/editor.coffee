@@ -257,10 +257,16 @@ class Annotator.Editor extends Annotator.Widget
       element.addClass('annotator-input-datalist')
       datalist = $('<datalist />', {id: 'categories'})
       # append categories to the datalist
-      datalist.append($('<option value="travel">travel</option>'))
-      datalist.append($('<option value="teaching">teaching</option>'))
-      datalist.append($('<option value="work">work</option>'))
-      datalist.append($('<option value="play">play</option>'))
+      datalist.append($('<option value="police initiated">police initiated</option>'))
+      datalist.append($('<option value ="protestor initiated">protestor initiated</option>'))
+      datalist.append($('<option value="to be reviewed">to be reviewed</option>'))
+      datalist.append($('<option value="camp information">camp information</option>'))
+      datalist.append($('<option value="civilian government action">civilian government action</option>'))
+      datalist.append($('<option value="negotiation">negotiation</option>'))
+      datalist.append($('<option value="strategy">strategy</option>'))
+      datalist.append($('<option value="upcoming event">upcoming event</option>'))
+      datalist.append($('<option value="unrelated attitudes">unrelated attitudes</option>'))
+      datalist.append($('<option value="useless">useless</option>'))
       element.append(datalist)
 
     if field.type == 'checkbox'

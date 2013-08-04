@@ -653,7 +653,7 @@ class Annotator extends Delegator
     save = =>
       do cleanup
       $(annotation.highlights).removeClass('annotator-hl-temporary')
-      $(annotation.highlights).addClass('annotator-hl-'+annotation.text)
+      $(annotation.highlights).addClass('annotator-hl-'+annotation.text.split(' ').join('-'))
       # Fire annotationCreated events so that plugins can react to them
       this.publish('annotationCreated', [annotation])
 

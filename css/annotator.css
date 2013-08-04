@@ -46,13 +46,38 @@
 .annotator-hl {
 	background: rgba(255, 255, 10, 0.3);
 }
-
 .annotator-hl-temporary {
 	background: rgba(0, 124, 255, 0.3);
 }
-
-.annotator-hl.annotator-hl-travel{
-	background: rgba(0, 255, 0, 0.3);
+.annotator-hl.annotator-hl-police-initiated{
+	background: rgba(0, 0, 255, 0.7);
+}
+.annotator-hl.annotator-hl-protestor-initiated{
+	background: rgba(255, 153, 0, 0.7);
+}
+.annotator-hl.annotator-hl-to-be-reviewed{
+	background: rgba(255, 0, 0, 0.7);
+}
+.annotator-hl.annotator-hl-camp-information{
+	background: rgba(153, 0, 0, 0.7);
+}
+.annotator-hl.annotator-hl-civilian-government-action{
+	background: rgba(102, 51, 153, 0.7);
+}
+.annotator-hl.annotator-hl-negotiation{
+	background: rgba(47, 168, 114, 0.7);
+}
+.annotator-hl.annotator-hl-strategy{
+	background: rgba(255, 102, 204, 0.7);
+}
+.annotator-hl.annotator-hl-upcoming-event{
+	background: rgba(0, 204, 255, 0.7);
+}
+.annotator-hl.annotator-hl-unrelated-attitudes{
+	background: rgba(165, 204, 88, 0.7);
+}
+.annotator-hl.annotator-hl-useless{
+	background: rgba(153, 153, 153, 0.7);
 }
 
 /* Annotator Wrapper
