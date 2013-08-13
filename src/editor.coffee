@@ -258,7 +258,7 @@ class Annotator.Editor extends Annotator.Widget
       })
       element.addClass('annotator-input-suggest')
       # add the suggest capability to the input
-      $('#'+field.id).suggest haystack,
+      input.suggest haystack,
         suggestionColor   : '#cccccc',
         moreIndicatorClass: 'suggest-more',
         moreIndicatorText : '&hellip;'
