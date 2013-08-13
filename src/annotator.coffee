@@ -124,7 +124,7 @@ class Annotator extends Delegator
       .on('hide', this.onEditorHide)
       .on('save', this.onEditorSubmit)
       .addField({
-        type: 'input-datalist',
+        type: 'input-suggest',
         label: _t('Categorize')
         load: (field, annotation) ->
           $(field).find('input').val(annotation.text || '')
@@ -653,9 +653,17 @@ class Annotator extends Delegator
     save = =>
       do cleanup
       $(annotation.highlights).removeClass('annotator-hl-temporary')
+      # Clean up synonyms
+      do synnonyms
       $(annotation.highlights).addClass('annotator-hl-'+annotation.text.split(' ').join('-'))
       # Fire annotationCreated events so that plugins can react to them
       this.publish('annotationCreated', [annotation])
+
+    # Accept synnonyms
+    synnonyms = =>    
+      annotation.text = annotation.text.toLowerCase()
+      annotation.text = annotation.text.replace("protester", "protestor")
+      annotation.text = annotation.text.replace("attitude", "attitudes")
 
     # Remove the highlights if the edit is cancelled
     cancel = =>

@@ -240,7 +240,7 @@ class Annotator.Editor extends Annotator.Widget
 
     switch (field.type)
       when 'textarea'          then input = $('<textarea />')
-      when 'input', 'input-datalist', 'checkbox' then input = $('<input />')
+      when 'input', 'input-suggest', 'input-datalist', 'checkbox' then input = $('<input />')
       when 'select' then input = $('<select />')
 
     element.append(input);
@@ -250,6 +250,20 @@ class Annotator.Editor extends Annotator.Widget
       placeholder: field.label
     })
 
+    # variable for the suggest option
+    haystack = ["police initiated","protestor initiated","to be reviewed","camp information","civilian government action","negotiation","strategy","upcoming event","unrelated attitudes","useless"]
+    if field.type == 'input-suggest'
+      input.attr({
+        type: 'text'
+      })
+      element.addClass('annotator-input-suggest')
+      # add the suggest capability to the input
+      $('#'+field.id).suggest haystack,
+        suggestionColor   : '#cccccc',
+        moreIndicatorClass: 'suggest-more',
+        moreIndicatorText : '&hellip;'
+      
+    # datalist option
     if field.type == 'input-datalist'
       input.attr({
         list: 'categories'
