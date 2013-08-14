@@ -50,34 +50,34 @@
 	background: rgba(0, 124, 255, 0.3);
 }
 .annotator-hl.annotator-hl-police{
-	background: rgba(0, 0, 255, 0.7);
+	background: rgba(0, 0, 255, 0.6);
 }
 .annotator-hl.annotator-hl-protestor{
-	background: rgba(255, 153, 0, 0.7);
+	background: rgba(255, 153, 0, 0.6);
 }
 .annotator-hl.annotator-hl-go-over{
-	background: rgba(255, 0, 0, 0.7);
+	background: rgba(255, 0, 0, 0.6);
 }
 .annotator-hl.annotator-hl-camp{
-	background: rgba(152, 0, 0, 0.7);
+	background: rgba(152, 0, 0, 0.6);
 }
 .annotator-hl.annotator-hl-city{
-	background: rgba(153, 0, 255, 0.7);
+	background: rgba(153, 0, 255, 0.6);
 }
 .annotator-hl.annotator-hl-negotiation{
-	background: rgba(106, 168, 79, 0.7);
+	background: rgba(106, 168, 79, 0.6);
 }
 .annotator-hl.annotator-hl-strategy{
-	background: rgba(255, 0, 255, 0.7);
+	background: rgba(255, 0, 255, 0.6);
 }
 .annotator-hl.annotator-hl-plans{
-	background: rgba(0, 255, 255, 0.7);
+	background: rgba(0, 255, 255, 0.6);
 }
 .annotator-hl.annotator-hl-general{
-	background: rgba(0, 255, 0, 0.7);
+	background: rgba(0, 255, 0, 0.6);
 }
 .annotator-hl.annotator-hl-useless{
-	background: rgba(153, 153, 153, 0.7);
+	background: rgba(153, 153, 153, 0.6);
 }
 
 /* Annotator Wrapper
