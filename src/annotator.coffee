@@ -663,7 +663,6 @@ class Annotator extends Delegator
     synnonyms = =>    
       annotation.text = annotation.text.toLowerCase()
       annotation.text = annotation.text.replace("protester", "protestor")
-      annotation.text = annotation.text.replace("attitude", "attitudes")
 
     # Remove the highlights if the edit is cancelled
     cancel = =>
