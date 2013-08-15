@@ -251,7 +251,7 @@ class Annotator.Editor extends Annotator.Widget
     })
 
     # variable for the suggest option
-    haystack = ["police","protestor","go over","camp","city","negotiation","strategy","plans","general","useless"]
+    haystack = ["police","protestor","review","camp","city","negotiation","strategy","plans","general","useless"]
     if field.type == 'input-suggest'
       input.attr({
         type: 'text'
